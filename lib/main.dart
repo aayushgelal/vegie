@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tikiz/Pages/HomeScreen.dart';
 import 'package:tikiz/Pages/sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:tikiz/firebase_options.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       routes: approutes,
       theme: apptheme,
       debugShowCheckedModeBanner: false,
-      home: SignIn(),
+      home: HomeScreen(),
     );
   }
 }

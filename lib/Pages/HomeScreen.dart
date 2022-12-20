@@ -4,6 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:tikiz/components/Drawer.dart';
+import 'package:tikiz/components/single_product.dart';
+import 'package:tikiz/models/fake_data.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,7 +15,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: Drawer(),
+        backgroundColor: Color(0xffd9dad9),
+        drawer: MyDrawer(),
         appBar: AppBar(
           title: Text(
             "Home",
@@ -50,12 +54,13 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
         body: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
                 Container(
-                  height: 150,
+                  height: 170,
                   width: double.infinity,
                   child: Container(
                     decoration: BoxDecoration(
@@ -115,8 +120,10 @@ class HomeScreen extends StatelessWidget {
                       image: DecorationImage(
                           image: AssetImage('asset/vegetable.jpg'),
                           fit: BoxFit.cover),
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(10)),
+                      borderRadius: BorderRadius.circular(20)),
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -132,76 +139,55 @@ class HomeScreen extends StatelessWidget {
                     )
                   ],
                 ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  height: 250,
+                  child: ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: Herbs.length,
+                      itemBuilder: (context, index) {
+                        return SingleProduct(
+                            name: Herbs[index].Name,
+                            image: Herbs[index].Image,
+                            onTap: Herbs[index].onTap);
+                      }),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      height: 230,
-                      width: 180,
-                      decoration: BoxDecoration(
-                          color: Color(0xffd9dad9),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Column(
-                        children: [
-                          Expanded(
-                              child: Image(
-                            image: AssetImage('asset/basil.jpg'),
-                            fit: BoxFit.fill,
-                          )),
-                          Text('Fresh Basil'),
-                          Text("50/50gm"),
-                          Container(
-                            padding: EdgeInsets.all(20),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    height: 30,
-                                    width: 40,
-                                    child: Text('50 gram'),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.white),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    height: 30,
-                                    width: 40,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.white),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                              Icons.remove,
-                                              size: 15,
-                                            )),
-                                        Expanded(child: Text("2")),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                              Icons.add,
-                                              size: 15,
-                                            )),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                    Text(
+                      'Fresh Fruits',
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      'View all',
+                      style: TextStyle(color: Colors.grey),
                     )
                   ],
-                )
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  height: 250,
+                  child: ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: Fruits.length,
+                      itemBuilder: (context, index) {
+                        return SingleProduct(
+                            name: Fruits[index].Name,
+                            image: Fruits[index].Image,
+                            onTap: Fruits[index].onTap);
+                      }),
+                ),
               ],
             ),
           ),
